@@ -29,19 +29,21 @@ document.getElementById("randomize").addEventListener("click", (e) => {
 
     const lobbySize = 6
 
-    let numLobbies = Math.ceil(competitors.length / lobbySize)
-    const numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies)
+    const numLobbies = Math.ceil(competitors.length / lobbySize)
+    let numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies)
 
     competitors = shuffle(competitors);
+    competitors = [0,1,2,3,4,5,6,7,8,9,10,11,12]
 
     var groups = {};
-    console.log(competitors.length)
 
     for (let i = 0; i < numLobbies; i++) {
         const group = [];
+        let lobbiesLeft = numLobbies;
 
         for (let j = 0; j < numCompetitorsPerLobby; j++) {
-            if (competitors != []) {
+            if (competitors.length != 0) {
+                console.log(numCompetitorsPerLobby)
                 const competitor = competitors.pop();
                 group.push(competitor)
             }
@@ -49,11 +51,10 @@ document.getElementById("randomize").addEventListener("click", (e) => {
         const num = i+1;
 
         groups["Group " + num] = group;
-        console.log("AAA"+groups["Group " + i+1]);
 
         if (competitors.length > lobbySize) {
-            numLobbies -= 1;
-            numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbie);
+            lobbiesLeft -= 1;
+            numCompetitorsPerLobby = Math.ceil(competitors.length / lobbiesLeft);
         }
     }
 
@@ -67,10 +68,7 @@ document.getElementById("randomize").addEventListener("click", (e) => {
 
         const randomizedGroups = document.getElementById(key);
 
-        console.log("val: "+val.length);
-
         val.forEach(elem => {
-            console.log(elem)
             const il = document.createElement("li");
             il.innerText = elem;
             randomizedGroups.appendChild(il);
