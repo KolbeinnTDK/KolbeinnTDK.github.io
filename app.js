@@ -1,49 +1,79 @@
-let competitors = [];
+const competitors = [];
 
-shuffle = (a) => {
+const shuffle = (arr) => {
+    let arrClone = arr.map((x) => x);
     var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
+    for (i = arrClone.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
+        x = arrClone[i];
+        arrClone[i] = arrClone[j];
+        arrClone[j] = x;
     }
-    return a;
-}
+    return arrClone;
+};
+
+
+const addCompetitor = () => {
+    const name = document.getElementById("competitorName").value;
+
+    if (name !== "") {
+
+        document.getElementById("competitorName").value = "";
+
+        const list = document.getElementById("competitorsList");
+
+        competitors.push(name);
+
+        const li = document.createElement("li");
+        li.innerText = name;
+        list.appendChild(li);
+    };
+};
 
 
 document.getElementById("add").addEventListener("click", (e) => {  
-    const name = document.getElementById("competitorName").value;
-
-    const list = document.getElementById("competitorsList");
-
-    competitors.push(name);
-
-    const li = document.createElement("li");
-    li.innerText = name;
-    list.appendChild(li);
+    addCompetitor();
 });
 
 
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        addCompetitor();
+    };
+});
+
+
+
+const clean = () => {
+    const groupList = document.getElementById("groupsList");
+    console.log("clean"+groupList);
+
+    if (groupList.innerHTML != "")
+        groupList.innerHTML = "";
+
+};
+
 document.getElementById("randomize").addEventListener("click", (e) => {  
+    clean();
+    console.log(competitors);
 
     const lobbySize = 6
 
     const numLobbies = Math.ceil(competitors.length / lobbySize)
     let numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies)
 
-    competitors = shuffle(competitors);
+    let randomized = shuffle(competitors);
 
-    var groups = {};
+    let groups = {};
 
     for (let i = 0; i < numLobbies; i++) {
         const group = [];
         let lobbiesLeft = numLobbies;
 
         for (let j = 0; j < numCompetitorsPerLobby; j++) {
-            if (competitors.length != 0) {
+            if (randomized.length != 0) {
                 console.log(numCompetitorsPerLobby)
-                const competitor = competitors.pop();
+                const competitor = randomized.pop();
                 group.push(competitor)
             }
         }
@@ -51,9 +81,9 @@ document.getElementById("randomize").addEventListener("click", (e) => {
 
         groups["Group " + num] = group;
 
-        if (competitors.length > lobbySize) {
+        if (randomized.length > lobbySize) {
             lobbiesLeft -= 1;
-            numCompetitorsPerLobby = Math.ceil(competitors.length / lobbiesLeft);
+            numCompetitorsPerLobby = Math.ceil(randomized.length / lobbiesLeft);
         }
     }
 
