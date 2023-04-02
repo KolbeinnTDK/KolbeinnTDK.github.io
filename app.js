@@ -26,7 +26,19 @@ const addCompetitor = () => {
 
         const li = document.createElement("li");
         li.innerText = name;
+
+        const delButton = document.createElement("button");
+        delButton.innerText="remove";
+        delButton.onclick = function delCompetitor() {
+            list.removeChild(li);
+        };
+        console.log(delButton);
+
+        li.appendChild(delButton);
+
         list.appendChild(li);
+
+        console.log(list);
     };
 };
 
