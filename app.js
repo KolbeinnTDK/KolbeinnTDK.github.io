@@ -46,43 +46,40 @@ document.addEventListener("keydown", (e) => {
 
 const clean = () => {
     const groupList = document.getElementById("groupsList");
-    console.log("clean"+groupList);
 
-    if (groupList.innerHTML != "")
-        groupList.innerHTML = "";
-
+    groupList.innerHTML = ""
 };
 
 document.getElementById("randomize").addEventListener("click", (e) => {  
     clean();
     console.log(competitors);
 
-    const lobbySize = 6
+    const lobbySize = 6;
 
-    const numLobbies = Math.ceil(competitors.length / lobbySize)
-    let numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies)
+    const numLobbies = Math.ceil(competitors.length / lobbySize);
+    let numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies);
 
     let randomized = shuffle(competitors);
 
     let groups = {};
 
+    let lobbiesLeft = numLobbies;
+
     for (let i = 0; i < numLobbies; i++) {
         const group = [];
-        let lobbiesLeft = numLobbies;
-
         for (let j = 0; j < numCompetitorsPerLobby; j++) {
             if (randomized.length != 0) {
-                console.log(numCompetitorsPerLobby)
                 const competitor = randomized.pop();
-                group.push(competitor)
+                group.push(competitor);
             }
         }
         const num = i+1;
 
         groups["Group " + num] = group;
 
-        if (randomized.length > lobbySize) {
-            lobbiesLeft -= 1;
+        lobbiesLeft -= 1;
+        if (randomized.length >= lobbySize) {
+            console.log(lobbiesLeft + "    " +randomized.length +"   "+ randomized.length / lobbiesLeft)
             numCompetitorsPerLobby = Math.ceil(randomized.length / lobbiesLeft);
         }
     }
