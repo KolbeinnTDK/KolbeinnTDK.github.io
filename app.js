@@ -52,52 +52,55 @@ const clean = () => {
 
 document.getElementById("randomize").addEventListener("click", (e) => {  
     clean();
-    console.log(competitors);
+    let lobbySize = 0;
 
-    const lobbySize = 6;
-
-    const numLobbies = Math.ceil(competitors.length / lobbySize);
-    let numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies);
-
-    let randomized = shuffle(competitors);
-
-    let groups = {};
-
-    let lobbiesLeft = numLobbies;
-
-    for (let i = 0; i < numLobbies; i++) {
-        const group = [];
-        for (let j = 0; j < numCompetitorsPerLobby; j++) {
-            if (randomized.length != 0) {
-                const competitor = randomized.pop();
-                group.push(competitor);
-            }
-        }
-        const num = i+1;
-
-        groups["Group " + num] = group;
-
-        lobbiesLeft -= 1;
-        if (randomized.length >= lobbySize) {
-            console.log(lobbiesLeft + "    " +randomized.length +"   "+ randomized.length / lobbiesLeft)
-            numCompetitorsPerLobby = Math.ceil(randomized.length / lobbiesLeft);
-        }
+    if (document.getElementById("lobbySize").value != "") {
+        lobbySize = document.getElementById("lobbySize").value;
     }
 
-    const groupList = document.getElementById("groupsList");
+    if (lobbySize > 0) {
+        const numLobbies = Math.ceil(competitors.length / lobbySize);
+        let numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies);
 
-    Object.entries(groups).forEach(([key, val]) => {
-        const ul = document.createElement("ul");
-        ul.innerText = key;
-        ul.id = key;
-        groupList.appendChild(ul);
+        let randomized = shuffle(competitors);
 
-        const randomizedGroups = document.getElementById(key);
+        let groups = {};
 
-        val.forEach(elem => {
-            const il = document.createElement("li");
-            il.innerText = elem;
-            randomizedGroups.appendChild(il);
+        let lobbiesLeft = numLobbies;
+
+        for (let i = 0; i < numLobbies; i++) {
+            const group = [];
+            for (let j = 0; j < numCompetitorsPerLobby; j++) {
+                if (randomized.length != 0) {
+                    const competitor = randomized.pop();
+                    group.push(competitor);
+                }
+            }
+            const num = i+1;
+
+            groups["Group " + num] = group;
+
+            lobbiesLeft -= 1;
+            if (randomized.length >= lobbySize) {
+                numCompetitorsPerLobby = Math.ceil(randomized.length / lobbiesLeft);
+            }
+        }
+
+        const groupList = document.getElementById("groupsList");
+
+        Object.entries(groups).forEach(([key, val]) => {
+            const ul = document.createElement("ul");
+            ul.innerText = key;
+            ul.id = key;
+            groupList.appendChild(ul);
+
+            const randomizedGroups = document.getElementById(key);
+
+            val.forEach(elem => {
+                const il = document.createElement("li");
+                il.innerText = elem;
+                randomizedGroups.appendChild(il);
+            });
         });
-    }); 
+    };
 });
