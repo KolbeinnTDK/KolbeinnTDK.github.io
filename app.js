@@ -32,13 +32,10 @@ const addCompetitor = () => {
         delButton.onclick = function delCompetitor() {
             list.removeChild(li);
         };
-        console.log(delButton);
 
         li.appendChild(delButton);
-
         list.appendChild(li);
 
-        console.log(list);
     };
 };
 
