@@ -16,7 +16,7 @@ const shuffle = (arr) => {
 const addCompetitor = () => {
     const name = document.getElementById("competitorName").value;
 
-    if (name !== "") {
+    if (name !== "" && !competitors.includes(name)) {
 
         document.getElementById("competitorName").value = "";
 
@@ -30,6 +30,13 @@ const addCompetitor = () => {
         const delButton = document.createElement("button");
         delButton.innerText="remove";
         delButton.onclick = function delCompetitor() {
+            for( var i = 0; i < competitors.length; i++){ 
+                                   
+                if ( competitors[i] === name) { 
+                    competitors.splice(i, 1); 
+                    i--; 
+                }
+            }
             list.removeChild(li);
         };
 
