@@ -4,13 +4,18 @@
     <title>Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../assets/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="{{ '/assets/css/style.css' | relative_url }}">
   </head>
 
   <body>
-    <ul>
-      <li><a href = "/projects">Game Projects</a> </li>
-      <li><a href = "/teams">Team Randomizer</a> </li>
-    </ul>
+    <div class="nav-container">
+      <nav>
+        <ul>
+          <li><a href = "/"><img src="{{ '/assets/images/home-white.png' | relative_url }}" alt="Home" width="20" height="20" color="white"></a> </li>
+          <li><a href = "/projects">Game Projects</a> </li>
+          <li><a href = "/teams">Team Randomizer</a> </li>
+        </ul>
+      </nav>
+    </div>
   </body>
 </html>
