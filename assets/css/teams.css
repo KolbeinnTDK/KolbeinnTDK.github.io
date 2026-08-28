@@ -1,0 +1,41 @@
+.team-randomizer {
+  display: grid;
+  justify-content: center;
+  place-items: center;
+  margin-top: 4rem;
+  font-size: 30px;
+
+  .team-input {
+    display: flex;
+  }
+
+  #competitors-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    li {
+      margin-right: 2rem;
+      list-style-type: none;
+    }
+    li:hover {
+      text-decoration: line-through;
+    }
+  }
+
+  #team-list{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    li {
+      list-style-type: none;
+      justify-content: center;
+    }
+
+    ul {
+      place-items: center;;
+    }
+  }
+}

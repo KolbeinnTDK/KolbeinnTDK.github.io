@@ -8,20 +8,24 @@ permalink: /teams
     <title>Fight Club Randomizer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ '/assets/css/style.css' | relative_url }}">
   </head>
 
   <body>
-    <input id="competitorName" placeholder="Competitor name">
-    <button id="add">Add</button>
+    <div class="team-randomizer">
+      <div class="team-input">
+        <input id="competitor-name" placeholder="Competitor name">
+        <button id="add">Add</button>
 
-    <input id="lobbySize" type="number" min="1" placeholder="Lobby size"/>
-    <button id="randomize">Randomize</button>
+        <input id="team-size" type="number" min="2" placeholder="Team size"/>
+        <button id="randomize">Randomize</button>
+      </div>
 
-    <div id="competitorsList"></div>
+      <div id="competitors-list"></div>
 
-    <div id="groupsList"></div>
+      <div id="team-list"></div>
 
-
-    <script src="{{ '/scripts/team-randomizer.js' | relative_url }}"></script>
+      <script src="{{ '/scripts/team-randomizer.js' | relative_url }}"></script>
+    </div>
   </body>
 </html>

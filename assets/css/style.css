@@ -1,4 +1,6 @@
 @import "navbar.css";
+@import "home.css";
+@import "teams.css";
 
 body {
     margin: 0;

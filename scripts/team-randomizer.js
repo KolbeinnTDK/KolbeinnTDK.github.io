@@ -14,22 +14,20 @@ const shuffle = (arr) => {
 
 
 const addCompetitor = () => {
-    const name = document.getElementById("competitorName").value;
+    const name = document.getElementById("competitor-name").value;
 
     if (name !== "" && !competitors.includes(name)) {
 
-        document.getElementById("competitorName").value = "";
+        document.getElementById("competitor-name").value = "";
 
-        const list = document.getElementById("competitorsList");
+        const list = document.getElementById("competitors-list");
 
         competitors.push(name);
 
         const li = document.createElement("li");
         li.innerText = name;
 
-        const delButton = document.createElement("button");
-        delButton.innerText="remove";
-        delButton.onclick = function delCompetitor() {
+        li.onclick = function delCompetitor() {
             for( var i = 0; i < competitors.length; i++){ 
                                    
                 if ( competitors[i] === name) { 
@@ -40,9 +38,7 @@ const addCompetitor = () => {
             list.removeChild(li);
         };
 
-        li.appendChild(delButton);
         list.appendChild(li);
-
     };
 };
 
@@ -61,61 +57,61 @@ document.addEventListener("keydown", (e) => {
 
 
 const clean = () => {
-    const groupList = document.getElementById("groupsList");
+    const teamList = document.getElementById("team-list");
 
-    groupList.innerHTML = ""
+    teamList.innerHTML = ""
 };
 
 document.getElementById("randomize").addEventListener("click", (e) => {  
     clean();
-    let lobbySize = 0;
+    let teamSize = 0;
 
-    if (document.getElementById("lobbySize").value != "") {
-        lobbySize = document.getElementById("lobbySize").value;
+    if (document.getElementById("team-size").value != "") {
+        teamSize = document.getElementById("team-size").value;
     }
 
-    if (lobbySize > 0) {
-        const numLobbies = Math.ceil(competitors.length / lobbySize);
-        let numCompetitorsPerLobby = Math.ceil(competitors.length / numLobbies);
+    if (teamSize > 0) {
+        const numLobbies = Math.ceil(competitors.length / teamSize);
+        let numCompetitorsPerTeam = Math.ceil(competitors.length / numLobbies);
 
         let randomized = shuffle(competitors);
 
-        let groups = {};
+        let teams = {};
 
         let lobbiesLeft = numLobbies;
 
         for (let i = 0; i < numLobbies; i++) {
-            const group = [];
-            for (let j = 0; j < numCompetitorsPerLobby; j++) {
+            const team = [];
+            for (let j = 0; j < numCompetitorsPerTeam; j++) {
                 if (randomized.length != 0) {
                     const competitor = randomized.pop();
-                    group.push(competitor);
+                    team.push(competitor);
                 }
             }
             const num = i+1;
 
-            groups["Group " + num] = group;
+            teams["Team " + num] = team;
 
             lobbiesLeft -= 1;
-            if (randomized.length >= lobbySize) {
-                numCompetitorsPerLobby = Math.ceil(randomized.length / lobbiesLeft);
+            if (randomized.length >= teamSize) {
+                numCompetitorsPerTeam = Math.ceil(randomized.length / lobbiesLeft);
             }
         }
 
-        const groupList = document.getElementById("groupsList");
+        const teamList = document.getElementById("team-list");
 
-        Object.entries(groups).forEach(([key, val]) => {
+        Object.entries(teams).forEach(([key, val]) => {
             const ul = document.createElement("ul");
             ul.innerText = key;
             ul.id = key;
-            groupList.appendChild(ul);
+            teamList.appendChild(ul);
 
-            const randomizedGroups = document.getElementById(key);
+            const randomizedTeams = document.getElementById(key);
 
             val.forEach(elem => {
                 const il = document.createElement("li");
                 il.innerText = elem;
-                randomizedGroups.appendChild(il);
+                randomizedTeams.appendChild(il);
             });
         });
     };
